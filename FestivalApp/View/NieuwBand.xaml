@@ -1,0 +1,40 @@
+﻿<Window x:Class="FestivalApp.View.NieuwBand"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nieuwe Band" Height="480" Width="640" ResizeMode="NoResize">
+    <Grid Background="#FFE5E5E5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lbNaam" Content="Naam " Margin="5,0,0,0" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtNaam" Margin="5,8" Grid.Row="1" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
+        <Label x:Name="lbGenre" Content="Genre" Margin="5,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
+        <ListBox x:Name="lstGenres" Margin="5,8" Grid.Row="3"/>
+        <Label x:Name="lbFacebook" Content="Facebook" Margin="5,0,0,0" Grid.Row="4" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtFacebook" Margin="5,8" Grid.Row="5" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
+        <Label x:Name="lbTwitter" Content="Twitter" Margin="5,0,0,0" Grid.Row="6" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtTwitter" Margin="5,8" Grid.Row="7" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
+        <Label x:Name="lbFoto" Content="Foto" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
+        <Image x:Name="imgFoto" Grid.Column="1" Margin="5,8" Grid.Row="1" Grid.RowSpan="3"/>
+        <Button x:Name="btnBrowse" Content="Browse" Grid.Column="1" Margin="50,8" Grid.Row="4"/>
+        <Label x:Name="lbOmschrijving" Content="Omschrijving " Grid.Column="1" Margin="5,0,0,0" Grid.Row="5" VerticalAlignment="Center"/>
+        <RichTextBox x:Name="txtOmschrijving" Grid.Column="1" Margin="5,8" Grid.Row="6" Grid.RowSpan="2" VerticalContentAlignment="Center">
+            <FlowDocument>
+
+            </FlowDocument>
+        </RichTextBox>
+        <Button x:Name="btnToevoegen" Grid.ColumnSpan="2" Content="Toevoegen" Margin="150,8" Grid.Row="8"/>
+    </Grid>
+</Window>

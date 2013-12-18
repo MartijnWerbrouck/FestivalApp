@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="FestivalApp.View.TicketingPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="grbPrijsBevestiging" Header="Prijsbevestiging" Margin="10">
+            <Grid Margin="0,-3,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label x:Name="lbPrijsDag" Content="Dag" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cboDagen" Margin="5" Grid.Row="1"/>
+                <Label x:Name="lbPrijsAantal" Content="Aantal" Margin="5,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtPrijsAantal" Grid.Row="3" TextWrapping="Wrap" Margin="5" VerticalContentAlignment="Center"/>
+                <Label x:Name="lbPrijsTicket" Content="Prijs" Margin="5,0,0,0" Grid.Row="4" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtPrijsTicket" Margin="5" Grid.Row="5" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
+                <Button x:Name="btnPrijsBevestigen" Content="Bevestigen" Margin="5,7.5" Grid.Row="6" Click="btnPrijsBevestigen_Click"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="grbOverzichtBestellingen" Header="Overzicht" Margin="10" Grid.Column="1">
+            <Grid Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lbKlanten" Content="Klanten" Margin="10,0,0,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+                <ListBox x:Name="lbxKlanten" Grid.Row="1" Grid.ColumnSpan="3" Margin="10"/>
+                <Label x:Name="lbKlantDagen" Content="Dagen" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
+                <Label x:Name="lbKlantAantal" Content="Aantal" Grid.Column="1" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cboKlantDagen" Grid.Row="3" Margin="5"/>
+                <TextBox x:Name="txtKlantAantal" Grid.Column="1" Margin="5" Grid.Row="3" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
+                <Button x:Name="btnReserveer" Content="Reserveer" Grid.Column="2" Margin="5" Grid.Row="3" Click="btnReserveer_Click"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>
