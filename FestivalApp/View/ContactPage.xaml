@@ -13,23 +13,31 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dgContact" Grid.ColumnSpan="3" Grid.RowSpan="5" Margin="10,5,0,10">
+
+        <DataGrid x:Name="dgContact" Grid.ColumnSpan="3" Grid.RowSpan="5" Margin="10,5,0,10" ItemsSource="{Binding Contactpersons, UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedContactperson}"  AutoGenerateColumns="False" SelectionChanged="dgContact_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Naam" MinWidth="100"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Functie" MinWidth="100"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Telnr" MinWidth="100"/>
+                <DataGridTextColumn Binding="{Binding Name}" ClipboardContentBinding="{x:Null}" Header="Naam" MinWidth="100" />
+                <DataGridTextColumn Binding="{Binding Company}" ClipboardContentBinding="{x:Null}" Header="Bedrijf" MinWidth="100" />
+                <DataGridTextColumn Binding="{Binding JobRole}" ClipboardContentBinding="{x:Null}" Header="Functie" MinWidth="100"/>
+                <DataGridTextColumn Binding="{Binding City}" ClipboardContentBinding="{x:Null}" Header="Stad" MinWidth="100" />
+                <DataGridTextColumn Binding="{Binding Email}" ClipboardContentBinding="{x:Null}" Header="Email" MinWidth="100" />
+                <DataGridTextColumn Binding="{Binding Phone}" ClipboardContentBinding="{x:Null}" Header="Telnr" MinWidth="100"/>
+                <DataGridTextColumn Binding="{Binding Cellphone}" ClipboardContentBinding="{x:Null}" Header="Gsm" MinWidth="100" />
             </DataGrid.Columns>
         </DataGrid>
+        
         <GroupBox x:Name="grbFilterenFunctie" Grid.Column="3" Header="Filteren op Functie" Margin="10,25" Grid.RowSpan="2">
-            <ComboBox x:Name="cboFuncties" Margin="10,35,10,25"/>
+            <ComboBox x:Name="cboFuncties" Margin="10,35,10,25" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType, UpdateSourceTrigger=PropertyChanged}"/>
         </GroupBox>
-        <Button x:Name="btnNieuw" Content="Nieuw" Grid.Column="3" Margin="10,15" Grid.Row="2" Click="btnNieuw_Click"/>
+
+        <Button x:Name="btnNieuw" Content="Nieuw" Grid.Column="3" Margin="10,15" Grid.Row="2" Command="{Binding NewContactPersonCommand}"/>
         <Button x:Name="btnAanpassen" Content="Aanpassen" Grid.Column="3" Margin="10,15" Grid.Row="3" Click="btnAanpassen_Click"/>
         <Button x:Name="btnVerwijderen" Content="Verwijderen" Grid.Column="3" Margin="10,15" Grid.Row="4" Click="btnVerwijderen_Click"/>
     </Grid>

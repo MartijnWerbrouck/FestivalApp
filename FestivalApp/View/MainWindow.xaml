@@ -32,7 +32,7 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
         
-        <TextBlock x:Name="tbFestival" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Calibri" FontSize="33.333" FontWeight="Bold" Text="Festival"/>
+        <TextBlock x:Name="tbFestival" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Calibri" FontSize="33.333" FontWeight="Bold" Text="FestivalApp"/>
 
         <ItemsControl ItemsSource="{Binding Pages}" Margin="5,0,0,0" VerticalAlignment="Center" Grid.Row="1" ItemsPanel="{StaticResource ButtonsFestival}">
             <ItemsControl.ItemTemplate>

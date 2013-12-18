@@ -23,12 +23,9 @@ namespace FestivalApp.View
         public ContactPage()
         {
             InitializeComponent();
-        }
-
-        private void btnNieuw_Click(object sender, RoutedEventArgs e)
-        {
-            var nieuwContact = new NieuwContact();
-            nieuwContact.Show();
+            btnNieuw.IsEnabled = false;
+            btnAanpassen.IsEnabled = false;
+            btnVerwijderen.IsEnabled = false;
         }
 
         private void btnAanpassen_Click(object sender, RoutedEventArgs e)
@@ -40,6 +37,13 @@ namespace FestivalApp.View
         private void btnVerwijderen_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Het contactpersoon werd verwijderd");
+        }
+
+        private void dgContact_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnNieuw.IsEnabled = true;
+            btnAanpassen.IsEnabled = true;
+            btnVerwijderen.IsEnabled = true;
         }
     }
 }
