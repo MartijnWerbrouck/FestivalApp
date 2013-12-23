@@ -16,6 +16,7 @@ namespace FestivalApp.ViewModel
         public ContactPageVM() {
             _contactpersons = CheckContactperson(_selectedType);
             _types = ContactpersonType.GetTypes();
+            _changeTypes = ContactpersonType.GetTypes();
         }
 
         public string Name {
@@ -26,6 +27,7 @@ namespace FestivalApp.ViewModel
 
         private ObservableCollection<Contactperson> _contactpersons;
         private ObservableCollection<ContactpersonType> _types;
+        private ObservableCollection<ContactpersonType> _changeTypes;
 
         public ObservableCollection<Contactperson> Contactpersons { 
             get {
@@ -45,6 +47,26 @@ namespace FestivalApp.ViewModel
                 OnPropertyChanged("Types");
             }
         }
+        public ObservableCollection<ContactpersonType> ChangeTypes {
+            get {
+                return _changeTypes;
+            }
+            set {
+                _changeTypes = value;
+                OnPropertyChanged("ChangeTypes");
+            }
+        }
+
+        private Contactperson _contactperson;
+        public Contactperson SelectedContactperson {
+            get {
+                return _contactperson;
+            }
+            set {
+                _contactperson = value;
+                OnPropertyChanged("SelectedContactperson");
+            }
+        }
 
         private ContactpersonType _selectedType;
         public ContactpersonType SelectedType {
@@ -55,6 +77,17 @@ namespace FestivalApp.ViewModel
                 _selectedType = value;
                 OnPropertyChanged("SelectedType");
                 CheckContactperson(_selectedType);
+            }
+        }
+
+        private ContactpersonType _typeChange;
+        public ContactpersonType TypeChange {
+            get {
+                return _typeChange;
+            }
+            set {
+                _typeChange = value;
+                OnPropertyChanged("TypeChange");
             }
         }
 
@@ -70,26 +103,72 @@ namespace FestivalApp.ViewModel
             }
         }
 
-        private Contactperson _contactperson;
-        public Contactperson SelectedContactperson {
-            get {
-                return _contactperson;
-            }
-            set {
-                _contactperson = value;
-                OnPropertyChanged("SelectedContactperson");
-            }
-        }
-
+        #region Commands
         public ICommand NewContactPersonCommand {
             get {
                 return new RelayCommand(NewContactperson);
             }
         }
 
+        public ICommand EditContactPersonCommand {
+            get {
+                return new RelayCommand(EditContactperson);
+            }
+        }
+
+        public ICommand DeleteContactPersonCommand {
+            get {
+                return new RelayCommand(DeleteContactperson);
+            }
+        }
+
         private void NewContactperson() {
+            if (_typeChange == null) {
+                MessageBox.Show("Er is geen functie geselecteerd.");
+            }
+            else {
+                Contactperson c = new Contactperson();
+
+                c.Name = _contactperson.Name;
+                c.Company = _contactperson.Company;
+                c.JobRole = _typeChange;
+                c.City = _contactperson.City;
+                c.Email = _contactperson.Email;
+                c.Phone = _contactperson.Phone;
+                c.Cellphone = _contactperson.Cellphone;
+
+                Contactperson.InsertContactperson(c);
+
+                MessageBox.Show("De wijzigingen werden opgeslaan.");
+            }
+        }
+
+        private void EditContactperson() {
+            if (_typeChange == null) {
+                MessageBox.Show("Er is geen functie geselecteerd.");
+            } 
+            else {
+                Contactperson c = new Contactperson();
+
+                c.ID = _contactperson.ID;
+                c.Name = _contactperson.Name;
+                c.Company = _contactperson.Company;
+                c.JobRole = _typeChange;
+                c.City = _contactperson.City;
+                c.Email = _contactperson.Email;
+                c.Phone = _contactperson.Phone;
+                c.Cellphone = _contactperson.Cellphone;
+
+                Contactperson.UpdateContactperson(c);
+
+                MessageBox.Show("De wijzigingen werden opgeslaan.");
+            }
+        }
+
+        private void DeleteContactperson() {
             Contactperson c = new Contactperson();
-            
+
+            c.ID = _contactperson.ID;
             c.Name = _contactperson.Name;
             c.Company = _contactperson.Company;
             c.JobRole = _contactperson.JobRole;
@@ -97,10 +176,11 @@ namespace FestivalApp.ViewModel
             c.Email = _contactperson.Email;
             c.Phone = _contactperson.Phone;
             c.Cellphone = _contactperson.Cellphone;
-            
-            Contactperson.InsertContactperson(c);
-            
+
+            Contactperson.DeleteContactperson(c);
+
             MessageBox.Show("De wijzigingen werden opgeslaan.");
         }
+        #endregion
     }
 }

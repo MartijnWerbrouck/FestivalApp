@@ -26,17 +26,7 @@ namespace FestivalApp.View
             btnNieuw.IsEnabled = false;
             btnAanpassen.IsEnabled = false;
             btnVerwijderen.IsEnabled = false;
-        }
-
-        private void btnAanpassen_Click(object sender, RoutedEventArgs e)
-        {
-            var editContact = new EditContact();
-            editContact.Show();
-        }
-
-        private void btnVerwijderen_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Het contactpersoon werd verwijderd");
+            cboVeranderFuncties.IsEnabled = false;
         }
 
         private void dgContact_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,6 +34,7 @@ namespace FestivalApp.View
             btnNieuw.IsEnabled = true;
             btnAanpassen.IsEnabled = true;
             btnVerwijderen.IsEnabled = true;
+            cboVeranderFuncties.IsEnabled = true;
         }
     }
 }

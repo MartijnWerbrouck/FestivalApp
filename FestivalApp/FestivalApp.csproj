@@ -106,9 +106,6 @@
     <Compile Include="View\NieuwBand.xaml.cs">
       <DependentUpon>NieuwBand.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NieuwContact.xaml.cs">
-      <DependentUpon>NieuwContact.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\NieuwPodia.xaml.cs">
       <DependentUpon>NieuwPodia.xaml</DependentUpon>
     </Compile>
@@ -162,10 +159,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\NieuwBand.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\NieuwContact.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
