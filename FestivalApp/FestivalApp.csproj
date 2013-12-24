@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Open XML SDK\V2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight.Extras.WPF45, Version=4.1.24.16411, Culture=neutral, PublicKeyToken=0e27b6f8be9b2ef7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF45\GalaSoft.MvvmLight.Extras.WPF45.dll</HintPath>
@@ -97,17 +101,8 @@
     <Compile Include="View\EditBand.xaml.cs">
       <DependentUpon>EditBand.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EditContact.xaml.cs">
-      <DependentUpon>EditContact.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EditPodia.xaml.cs">
-      <DependentUpon>EditPodia.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\NieuwBand.xaml.cs">
       <DependentUpon>NieuwBand.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\NieuwPodia.xaml.cs">
-      <DependentUpon>NieuwPodia.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TicketingPage.xaml.cs">
       <DependentUpon>TicketingPage.xaml</DependentUpon>
@@ -121,14 +116,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditBand.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EditContact.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EditPodia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -159,10 +146,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\NieuwBand.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\NieuwPodia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

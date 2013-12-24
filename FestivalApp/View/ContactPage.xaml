@@ -5,133 +5,152 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.75*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        
-        <DataGrid x:Name="dgContact" Grid.ColumnSpan="3" Grid.RowSpan="5" Margin="10,5,0,10" 
+    <Grid Margin="5">
+        <TabControl x:Name="tbcContact" Grid.ColumnSpan="3" Margin="0" Grid.RowSpan="3">
+            <TabItem x:Name="tiContacten" Header="Contacten">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.75*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dgContact" Grid.ColumnSpan="3" Grid.RowSpan="5" Margin="10,5,0,10" 
                   ItemsSource="{Binding Contactpersons, UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedContactperson, UpdateSourceTrigger=PropertyChanged}"  
                   AutoGenerateColumns="False" SelectionChanged="dgContact_SelectionChanged">
-            <DataGrid.Resources>
-                <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
-                    <Style.Triggers>
-                        <Trigger Property="Validation.HasError" Value="true">
-                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                        <DataGrid.Resources>
+                            <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="true">
+                                        <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
                                 Path=(Validation.Errors)[0].ErrorContent}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Naam" MinWidth="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Name,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Naam" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Name,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Bedrijf" MinWidth="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Company,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Company, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Bedrijf" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Company,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Company, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Type" MinWidth="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding JobRole, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Type" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding JobRole, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Stad" MinWidth="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding City,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding City, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Stad" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding City,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding City, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Email" MinWidth="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Email,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Email" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Email,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Tel" MinWidth="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Phone,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Tel" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Phone,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="GSM" MinWidth="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Cellphone,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Cellphone, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-       
-        <StackPanel Name="pnlFunctie" Grid.Column="3" Grid.RowSpan="2" Margin="5">
-            <Label Name="lbFilter" Content="Filteren op functie :"/>
-            <ComboBox x:Name="cboFuncties" Margin="0,5,0,15" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Name="lbVerander" Content="Veranderen functie"/>
-            <ComboBox x:Name="cboVeranderFuncties" ItemsSource="{Binding ChangeTypes}" SelectedItem="{Binding TypeChange, UpdateSourceTrigger=PropertyChanged}"/>
-        </StackPanel>
+                            <DataGridTemplateColumn Header="GSM" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Cellphone,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Cellphone, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-        <Button x:Name="btnNieuw" Content="Nieuw" Grid.Column="3" Margin="10,15" Grid.Row="2" Command="{Binding NewContactPersonCommand}"/>
-        <Button x:Name="btnAanpassen" Content="Aanpassen" Grid.Column="3" Margin="10,15" Grid.Row="3" Command="{Binding EditContactPersonCommand}"/>
-        <Button x:Name="btnVerwijderen" Content="Verwijderen" Grid.Column="3" Margin="10,15" Grid.Row="4" Command="{Binding DeleteContactPersonCommand}"/>
+                    <StackPanel Name="pnlFunctie" Grid.Column="3" Grid.RowSpan="2" Margin="5">
+                        <Label Name="lbFilter" Content="Filteren op functie :"/>
+                        <ComboBox x:Name="cboFuncties" Margin="0,5,0,15" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Name="lbVerander" Content="Veranderen functie"/>
+                        <ComboBox x:Name="cboVeranderFuncties" ItemsSource="{Binding ChangeTypes}" SelectedItem="{Binding TypeChange, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <Button x:Name="btnNieuw" Content="Nieuw" Grid.Column="3" Margin="10,15" Grid.Row="2" Command="{Binding NewContactPersonCommand}"/>
+                    <Button x:Name="btnAanpassen" Content="Aanpassen" Grid.Column="3" Margin="10,15" Grid.Row="3" Command="{Binding EditContactPersonCommand}"/>
+                    <Button x:Name="btnVerwijderen" Content="Verwijderen" Grid.Column="3" Margin="10,15" Grid.Row="4" Command="{Binding DeleteContactPersonCommand}"/>
+                </Grid>
+            </TabItem>
+            
+            <TabItem x:Name="tiFuncties" Header="Functies">
+                <Grid>
+                    <StackPanel>
+                        <Label Name="lbOverzicht" Content="Overzicht functies" Margin="5,25,5,5"/>
+                        <ComboBox x:Name="cboVeranderenvanFuncties" ItemsSource="{Binding Types}" SelectedItem="{Binding CType, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                        <Label Name="lbNaam" Content="Naam" Margin="5"/>
+                        <TextBox Name="txtNaam" Text="{Binding CType.Name}" Margin="5" Height="25" VerticalContentAlignment="Center"/>
+                        <Button Name="btnNieuweFunctie" Content="Nieuw" Margin="5,50,5,5" Height="25" Command="{Binding NewContactpersonTypeCommand}"/>
+                        <Button Name="btnWijzigenFunctie" Content="Aanpassen" Margin="5" Height="25" Command="{Binding EditContactpersonTypeCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

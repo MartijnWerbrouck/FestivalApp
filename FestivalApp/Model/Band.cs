@@ -12,7 +12,6 @@ namespace FestivalApp.Model
     class Band
     {
         private String _ID;
-
         public String ID {
             get {
                 return _ID;
@@ -23,7 +22,6 @@ namespace FestivalApp.Model
         }
 
         private String _Name;
-
         public String Name {
             get {
                 return _Name;
@@ -34,7 +32,6 @@ namespace FestivalApp.Model
         }
 
         private String _Picture;
-
         public String Picture {
             get {
                 return _Picture;
@@ -45,7 +42,6 @@ namespace FestivalApp.Model
         }
 
         private String _Description;
-
         public String Description {
             get {
                 return _Description;
@@ -56,7 +52,6 @@ namespace FestivalApp.Model
         }
 
         private String _Twitter;
-
         public String Twitter {
             get {
                 return _Twitter;
@@ -67,7 +62,6 @@ namespace FestivalApp.Model
         }
 
         private String _Facebook;
-
         public String Facebook {
             get {
                 return _Facebook;
@@ -78,7 +72,6 @@ namespace FestivalApp.Model
         }
 
         private ObservableCollection<Genre> _Genres;
-
         public ObservableCollection<Genre> Genres {
             get {
                 return _Genres;

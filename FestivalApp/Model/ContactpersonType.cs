@@ -12,7 +12,6 @@ namespace FestivalApp.Model
     class ContactpersonType
     {
         private String _ID;
-
         public String ID {
             get {
                 return _ID;
@@ -23,7 +22,6 @@ namespace FestivalApp.Model
         }
 
         private String _Name;
-
         public String Name {
             get {
                 return _Name;
@@ -62,6 +60,25 @@ namespace FestivalApp.Model
 
         public override string ToString() {
             return this._Name;
+        }
+
+        //Insert in de database
+        public static void InsertContactpersonType(ContactpersonType ct) {
+            String sSQL = "INSERT INTO ContactPersonType (Name) VALUES (@Name)";
+
+            DbParameter par1 = Database.AddParameter("@Name", ct._Name);
+
+            Database.ModifyData(sSQL, par1);
+        }
+
+        //Update in de database 
+        public static void UpdateContactpersonType(ContactpersonType ct) {
+            String sSQL = "UPDATE ContactPersonType SET Name = @Name WHERE ContactPersonTypeID = @ID";
+
+            DbParameter par1 = Database.AddParameter("@Name", ct._Name);
+            DbParameter par2 = Database.AddParameter("@ID", ct._ID);
+
+            Database.ModifyData(sSQL, par1, par2);
         }
     }
 }

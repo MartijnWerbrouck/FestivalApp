@@ -28,9 +28,13 @@ namespace FestivalApp.ViewModel
 
             //STAGE
             _stages = Stage.GetStages();
+
+            //GENRE
+            _genres = Genre.GetGenres();
         }
 
         #region LineUp tabblad
+
         private ObservableCollection<LineUp> _lineup1;
         private ObservableCollection<LineUp> _lineup2;
         private ObservableCollection<LineUp> _lineup3;
@@ -44,7 +48,6 @@ namespace FestivalApp.ViewModel
                 OnPropertyChanged("LineUps1");
             }
         }
-
         public ObservableCollection<LineUp> LineUps2 {
             get {
                 return _lineup2;
@@ -54,7 +57,6 @@ namespace FestivalApp.ViewModel
                 OnPropertyChanged("LineUps2");
             }
         }
-
         public ObservableCollection<LineUp> LineUps3 {
             get {
                 return _lineup3;
@@ -64,11 +66,12 @@ namespace FestivalApp.ViewModel
                 OnPropertyChanged("LineUps3");
             }
         }
+
         #endregion
 
         #region Stages tabblad
-        private ObservableCollection<Stage> _stages;
 
+        private ObservableCollection<Stage> _stages;
         public ObservableCollection<Stage> Stages {
             get {
                 return _stages;
@@ -80,7 +83,6 @@ namespace FestivalApp.ViewModel
         }
 
         private Stage _stageSelected;
-
         public Stage SelectedStage {
             get {
                 return _stageSelected;
@@ -91,65 +93,120 @@ namespace FestivalApp.ViewModel
             }
         }
 
-        private ObservableCollection<LineUp> _lineup1Stage;
-        private ObservableCollection<LineUp> _lineup2Stage;
-        private ObservableCollection<LineUp> _lineup3Stage;
-
-        public ObservableCollection<LineUp> LineUps1Stage{
+        public ICommand NewStageCommand {
             get {
-                return _lineup1Stage;
-            }
-            set {
-                _lineup1Stage = LineUp.GetLineUp1FromStage(_stageSelected);
-                OnPropertyChanged("LineUps1Stage");
+                return new RelayCommand(NewStage);
             }
         }
-
-        public ObservableCollection<LineUp> LineUps2Stage {
+        public ICommand EditStageCommand {
             get {
-                return _lineup2Stage;
-            }
-            set {
-                _lineup2Stage = LineUp.GetLineUp2FromStage(_stageSelected);
-                OnPropertyChanged("LineUps2Stage");
+                return new RelayCommand(EditStage);
             }
         }
-
-        public ObservableCollection<LineUp> LineUps3Stage {
-            get {
-                return _lineup3Stage;
-            }
-            set {
-                _lineup3Stage = LineUp.GetLineUp3FromStage(_stageSelected);
-                OnPropertyChanged("LineUps3Stage");
-            }
-        }
-        
-        //UPDATE
-        public static void UpdateStage(Stage Stage) {
-            Stage sStage = new Stage();
-
-            sStage.ID = Stage.ID;
-            sStage.Name = Stage.Name;
- 
-            Stage.ModifyStage(sStage);
-        } 
-
-        //DELETE 
         public ICommand DeleteStageCommand {
             get {
                 return new RelayCommand(DeleteStage);
             }
         }
 
-        private void DeleteStage() {
-            Stage stage = new Stage();
-            stage = SelectedStage;
+        private void NewStage() {
+            Stage s = new Stage();
 
-            Stage.DeleteStage(stage);
+            s.Name = _stageSelected.Name;
+
+            Stage.AddStage(s);
+
+            MessageBox.Show("Er werd een nieuwe stage toegevoegd");
+        }
+        private void EditStage() {
+            Stage s = new Stage();
+
+            s.ID = _stageSelected.ID;
+            s.Name = _stageSelected.Name;
+
+            Stage.ModifyStage(s);
+
+            MessageBox.Show("Er werd een stage gewijzigd");
+        } 
+        private void DeleteStage() {
+            Stage s = new Stage();
+            s = _stageSelected;
+
+            Stage.DeleteStage(s);
 
             MessageBox.Show("De stage werd succesvol verwijderd.");
         }
+        
+        #endregion
+
+        #region Genres tabblad
+
+        private ObservableCollection<Genre> _genres;
+        public ObservableCollection<Genre> Genres {
+            get {
+                return _genres;
+            }
+            set {
+                _genres = value;
+                OnPropertyChanged("Genres");
+            }
+        }
+
+        private Genre _genreSelected;
+        public Genre SelectedGenre {
+            get {
+                return _genreSelected;
+            }
+            set {
+                _genreSelected = value;
+                OnPropertyChanged("SelectedGenre");
+            }
+        }
+
+        public ICommand NewGenreCommand {
+            get {
+                return new RelayCommand(NewGenre);
+            }
+        }
+        public ICommand EditGenreCommand {
+            get {
+                return new RelayCommand(EditGenre);
+            }
+        }
+        public ICommand DeleteGenreCommand {
+            get {
+                return new RelayCommand(DeleteGenre);
+            }
+        }
+
+        private void NewGenre() {
+            Genre g = new Genre();
+
+            g.Name = _genreSelected.Name;
+
+            Genre.AddGenre(g);
+
+            MessageBox.Show("Er werd een nieuw genre toegevoegd");
+        }
+        private void EditGenre() {
+            Genre g = new Genre();
+
+            g.ID = _genreSelected.ID;
+            g.Name = _genreSelected.Name;
+
+            Genre.ModifyGenre(g);
+
+            MessageBox.Show("Er werd een genre gewijzigd");
+        }
+        private void DeleteGenre() {
+            Genre g = new Genre();
+            g = _genreSelected;
+
+            Genre.DeleteGenre(g);
+
+            MessageBox.Show("Het genre werd succesvol verwijderd");
+        }
+
         #endregion
     }
 }

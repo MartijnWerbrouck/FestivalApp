@@ -6,10 +6,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <Grid.Resources>
+            <ControlTemplate x:Key="ErrorTemplate">
+                <Grid>
+                    <Border BorderBrush="Red" BorderThickness="2">
+                        <AdornedElementPlaceholder/>
+                    </Border>
+                    <TextBlock Foreground="Red" Text="{Binding [0].ErrorContent}" Width="150" TextWrapping="Wrap" HorizontalAlignment="Left"/>
+                </Grid>
+            </ControlTemplate>
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
+        
         <GroupBox x:Name="grbPrijsBevestiging" Header="Prijsbevestiging" Margin="10">
             <Grid Margin="0,-3,0,0">
                 <Grid.RowDefinitions>
@@ -21,20 +33,27 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
+                
                 <Label x:Name="lbPrijsDag" Content="Dag" Margin="5,0,0,0" VerticalAlignment="Center"/>
-                <ComboBox x:Name="cboDagen" Margin="5" Grid.Row="1"/>
+                <ComboBox x:Name="cboDagen" Margin="5" Grid.Row="1" VerticalContentAlignment="Center" ItemsSource="{Binding TicketTypes, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTicketType, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="cboDagen_SelectionChanged"/>
                 <Label x:Name="lbPrijsAantal" Content="Aantal" Margin="5,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtPrijsAantal" Grid.Row="3" TextWrapping="Wrap" Margin="5" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="txtPrijsAantal" Grid.Row="3" TextWrapping="Wrap" Margin="5" VerticalContentAlignment="Center" 
+                         Text="{Binding SelectedTicketType.AvailableTickets, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 <Label x:Name="lbPrijsTicket" Content="Prijs" Margin="5,0,0,0" Grid.Row="4" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtPrijsTicket" Margin="5" Grid.Row="5" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
-                <Button x:Name="btnPrijsBevestigen" Content="Bevestigen" Margin="5,7.5" Grid.Row="6" Click="btnPrijsBevestigen_Click"/>
+                <TextBox x:Name="txtPrijsTicket" Margin="5" Grid.Row="5" TextWrapping="Wrap" VerticalContentAlignment="Center" 
+                         Text="{Binding SelectedTicketType.Price, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                <Button x:Name="btnPrijsBevestigen" Content="Bevestigen" Margin="5,7.5" Grid.Row="6" Command="{Binding EditTicketTypeCommand}"/>
             </Grid>
         </GroupBox>
+        
         <GroupBox x:Name="grbOverzichtBestellingen" Header="Overzicht" Margin="10" Grid.Column="1">
             <Grid Margin="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="4*"/>
+                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
@@ -43,13 +62,81 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
+                
                 <Label x:Name="lbKlanten" Content="Klanten" Margin="10,0,0,0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-                <ListBox x:Name="lbxKlanten" Grid.Row="1" Grid.ColumnSpan="3" Margin="10"/>
-                <Label x:Name="lbKlantDagen" Content="Dagen" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
-                <Label x:Name="lbKlantAantal" Content="Aantal" Grid.Column="1" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center"/>
-                <ComboBox x:Name="cboKlantDagen" Grid.Row="3" Margin="5"/>
-                <TextBox x:Name="txtKlantAantal" Grid.Column="1" Margin="5" Grid.Row="3" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
-                <Button x:Name="btnReserveer" Content="Reserveer" Grid.Column="2" Margin="5" Grid.Row="3" Click="btnReserveer_Click"/>
+
+                <DataGrid x:Name="dgKlanten" Grid.Row="1" Grid.ColumnSpan="3" Margin="5,0,5,5" AutoGenerateColumns="False" 
+                          ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="dgKlanten_SelectionChanged">
+                    <DataGrid.Resources>
+                        <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <Trigger Property="Validation.HasError" Value="true">
+                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                                Path=(Validation.Errors)[0].ErrorContent}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+                    
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Naam" MinWidth="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Ticketholder,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Ticketholder, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Email" MinWidth="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding TicketholderEmail,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding TicketholderEmail, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Ticket" MinWidth="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TicketType.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Aantal" MinWidth="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Amount,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <ComboBox x:Name="cboTicketTypes" Grid.Row="2" Grid.ColumnSpan="3" Margin="5" ItemsSource="{Binding TicketTypes, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedHolderTicketType, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
+                <Button x:Name="btnBeschikbaarheid" Content="Beschikbaarheid" Grid.Row="3" Grid.ColumnSpan="2" Margin="5"
+                        Command="{Binding BeschikbaarheidCommand}"/>
+                <Button x:Name="btnReserveer" Content="Reserveer" Grid.Column="2" Margin="5" Grid.Row="3"
+                        Command="{Binding NewTicketCommand}"/>
+                <Button x:Name="btnExportToWord" Content="Print Ticket af" Grid.Row="4" Grid.ColumnSpan="3" Margin="5"
+                        Command="{Binding ExportFiletoWordCommand}"/>
             </Grid>
         </GroupBox>
     </Grid>

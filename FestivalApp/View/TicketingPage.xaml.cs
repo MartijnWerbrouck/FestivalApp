@@ -23,16 +23,30 @@ namespace FestivalApp.View
         public TicketingPage()
         {
             InitializeComponent();
+
+            //Prijsbevestiging
+            txtPrijsAantal.IsEnabled = false;
+            txtPrijsTicket.IsEnabled = false;
+            btnPrijsBevestigen.IsEnabled = false;
+
+            //Klanten
+            cboTicketTypes.IsEnabled = false;
+            btnReserveer.IsEnabled = false;
+            btnExportToWord.IsEnabled = false;
         }
 
-        private void btnPrijsBevestigen_Click(object sender, RoutedEventArgs e)
+        private void cboDagen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("De prijs is bevestigd.");
+            txtPrijsAantal.IsEnabled = true;
+            txtPrijsTicket.IsEnabled = true;
+            btnPrijsBevestigen.IsEnabled = true;
         }
 
-        private void btnReserveer_Click(object sender, RoutedEventArgs e)
+        private void dgKlanten_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("De reservatie voor klant is bevestigd.");
+            cboTicketTypes.IsEnabled = true;
+            btnReserveer.IsEnabled = true;
+            btnExportToWord.IsEnabled = true;
         }
     }
 }

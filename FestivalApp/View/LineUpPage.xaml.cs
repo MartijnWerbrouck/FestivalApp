@@ -25,22 +25,6 @@ namespace FestivalApp.View
             InitializeComponent();
         }
 
-        private void btnPodiaNieuw_Click(object sender, RoutedEventArgs e) {
-            var nieuwPodia = new NieuwPodia();
-            nieuwPodia.Show();
-        }
-
-        private void btnPodiaAanpassen_Click(object sender, RoutedEventArgs e)
-        {
-            var editPodia = new EditPodia(lbxPodia.SelectedItem.ToString());
-            editPodia.Show();
-        }
-
-        private void btnPodiaVerwijderen_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Het podium werd verwijderd");
-        }
-
         private void btnBandsNieuw_Click(object sender, RoutedEventArgs e)
         {
             var nieuwBand = new NieuwBand();
