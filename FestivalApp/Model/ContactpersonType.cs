@@ -31,6 +31,7 @@ namespace FestivalApp.Model
             }
         }
 
+        //Alle contacttypes ophalen uit de database 
         public static ObservableCollection<ContactpersonType> GetTypes() {
             ObservableCollection<ContactpersonType> lijst = new ObservableCollection<ContactpersonType>();
 

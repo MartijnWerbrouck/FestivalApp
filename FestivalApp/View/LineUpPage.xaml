@@ -7,29 +7,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="5">
         <TabControl x:Name="tbcLineUp" Grid.ColumnSpan="3" Margin="0" Grid.RowSpan="3">
-            <TabItem x:Name="tiMain" Header="Main">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="3*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-
-                    <Label x:Name="lbDag1" Content="Vrijdag" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
-                    <Label x:Name="lbDag2" Content="Zaterdag" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
-                    <Label x:Name="lbDag3" Content="Zondag" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2"/>
-                    <ListBox x:Name="lbxDag1" ItemsSource="{Binding LineUps1, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" Grid.Column="1" Margin="5"/>
-                    <ListBox x:Name="lbxDag2" ItemsSource="{Binding LineUps2, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" Grid.Column="1" Margin="5"/>
-                    <ListBox x:Name="lbxDag3" ItemsSource="{Binding LineUps3, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" Grid.Column="1" Margin="5"/>
-                </Grid>
-            </TabItem>
-
-            <TabItem x:Name="tiPodia" Header="Podia">
+            <TabItem x:Name="tiStages" Header="Stages">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.20*"/>
@@ -44,7 +22,7 @@
 
                     <DataGrid x:Name="dgPodia" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" 
                               ItemsSource="{Binding Stages, UpdateSourceTrigger=PropertyChanged}" 
-                              SelectedItem="{Binding SelectedStage, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                              SelectedItem="{Binding SelectedStage, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="dgPodia_SelectionChanged">
                         <DataGrid.Resources>
                             <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
                                 <Style.Triggers>
@@ -81,55 +59,204 @@
             <TabItem x:Name="tiBands" Header="Bands" HorizontalAlignment="Left" Height="19.96" VerticalAlignment="Top" Width="55.32">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid x:Name="dgBands" Grid.ColumnSpan="2" Grid.Row="1" Margin="5,5,0,5" AutoGenerateColumns="False"
+                              ItemsSource="{Binding Bands, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedBand, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="dgBands_SelectionChanged">
+                        <DataGrid.Resources>
+                            <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="true">
+                                        <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                                Path=(Validation.Errors)[0].ErrorContent}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Naam" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Name,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Beschrijving" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Description,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Twitter" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Twitter,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Twitter, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Facebook" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Facebook,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Facebook, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Genre" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding Genres,  UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Column="2" Grid.Row="1" Margin="2">
+                        <Label x:Name="lbAfbeeldingToevoegen" Content="Afbeelding toevoegen" Margin="2,5,2,5"/>
+                        <Button x:Name="btnAfbeeldingToevoegen" Content="Toevoegen" Margin="2,0,2,5" Command="{Binding SelectPictureCommand}"/>
+                        <TextBlock x:Name="tbAfbeeldingToevoegen" Text="{Binding SelectedPicture}" Margin="2,0,2,5"/>
+                        <Label x:Name="lbGenresToevoegen" Content="Genres toevoegen" Margin="2,0,2,5"/>
+                        <ComboBox x:Name="cboGenresToevoegen" ItemsSource="{Binding Genres, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedBandGenre}" DisplayMemberPath="Name" Margin="2,2,2,5" SelectionChanged="cboGenresToevoegen_SelectionChanged"/>
+                        <Button x:Name="btnGenresToevoegen" Content="Toevoegen" Margin="2,2,2,5" Command="{Binding SelectGenresCommand}"/>
+                        <ListBox x:Name="lstGenresToevoegen" ItemsSource="{Binding SelectedBandGenres}" DisplayMemberPath="Name" Margin="2,2,2,5" Height="50"/>
+                        <Button x:Name="btnGenresBevestigen" Content="Bevestigen" Margin="2,2,2,0" Command="{Binding CommitGenresCommand}"/>
+                    </StackPanel>    
+                    
+                    <Button x:Name="btnBandsNieuw" Content="Nieuw" Margin="5" Command="{Binding NewBandCommand}"/>
+                    <Button x:Name="btnBandsAanpassen" Content="Aanpassen" Grid.Column="1" Margin="5" Command="{Binding EditBandCommand}"/>
+                    <Button x:Name="btnBandsVerwijderen" Content="Verwijderen" Grid.Column="2" Margin="5" Command="{Binding DeleteBandCommand}"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="LineUp">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.15*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.75*"/>
-                        <ColumnDefinition Width="0.75*"/>
-                        <ColumnDefinition Width="0.75*"/>
-                        <ColumnDefinition Width="0.75*"/>
-                        <ColumnDefinition Width="0.75*"/>
-                        <ColumnDefinition Width="1.25*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <DataGrid x:Name="dgBands" Grid.ColumnSpan="5" Grid.RowSpan="3" Grid.Row="1" Margin="5,5,0,5">
+                    <DataGrid x:Name="dgLineUp" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,0,5" AutoGenerateColumns="False"
+                              ItemsSource="{Binding LineUps, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedLineUp}" SelectionChanged="dgLineUp_SelectionChanged">
+                        <DataGrid.Resources>
+                            <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="true">
+                                        <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                                Path=(Validation.Errors)[0].ErrorContent}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Naam" MinWidth="100"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Genre" MinWidth="100"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Start" MinWidth="50"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Stop" MinWidth="50"/>
-                            <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Podia" MinWidth="100"/>
+                            <DataGridTemplateColumn Header="Datum" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Date,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Van" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding From,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding From, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Tot" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Until,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Until, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Band" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Band,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Stage" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockStyle}" Text="{Binding Stage,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-
-                    <GroupBox x:Name="grpFilteren" Grid.Column="5" Header="Filteren op" Margin="10" Grid.Row="1" Grid.RowSpan="2">
-                        <Grid HorizontalAlignment="Left" Height="140.565" VerticalAlignment="Top" Width="102.75">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
-                            <Label x:Name="lbGenreFilter" Content="Genre" Margin="2,10,0,0" HorizontalAlignment="Left"/>
-                            <ComboBox x:Name="cboGenreFilter" Margin="2,10" Grid.Row="1"/>
-                            <Label x:Name="lbWaarFilter" Content="Waar" HorizontalAlignment="Left" Margin="2,10,0,0" VerticalAlignment="Center" Grid.Row="2"/>
-                            <ComboBox x:Name="cboWaarFilter" Margin="2,10" Grid.Row="3"/>
-                        </Grid>
-                    </GroupBox>
-
-                    <Button x:Name="btnToonDetails" Content="Toon Details" Grid.Column="5" Margin="10" Grid.Row="3" Click="btnToonDetails_Click"/>
-                    <Button x:Name="btnBandsNieuw" Content="Nieuw" Margin="5" Grid.ColumnSpan="2" Click="btnBandsNieuw_Click"/>
-                    <Button x:Name="btnBandsAanpassen" Content="Aanpassen" Grid.Column="2" Margin="5" Grid.ColumnSpan="2" Click="btnBandsAanpassen_Click"/>
-                    <Button x:Name="btnBandsVerwijderen" Content="Verwijderen" Grid.Column="4" Margin="5,5,59,5" Grid.ColumnSpan="2" Click="btnBandsVerwijderen_Click"/>
+                    
+                    <StackPanel Grid.Row="1" Grid.Column="2" Margin="5">
+                        <Label x:Name="lbDatumKiezen" Content="Kies een Datum" Margin="2,5,2,5"/>
+                        <DatePicker x:Name="dpDatum" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged}" Margin="2,5,2,5" VerticalContentAlignment="Center"/>
+                        <Label x:Name="lbBandKiezen" Content="Kies een Band" Margin="2,5,2,5"/>
+                        <ComboBox x:Name="cboBandKiezen" ItemsSource="{Binding Bands, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedLineUpBand}" DisplayMemberPath="Name" Margin="2,5,2,5"/>
+                        <Button x:Name="btnToonDetails" Content="Toon Details" Margin="2,5,2,5" Command="{Binding ShowDetailsCommand}"/>
+                        <Label x:Name="lbStageKiezen" Content="Kies een Stage" Margin="2,5,2,5"/>
+                        <ComboBox x:Name="cboStageKiezen" ItemsSource="{Binding Stages, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedLineUpStage}" DisplayMemberPath="Name" Margin="2,5,2,5"/>
+                    </StackPanel>
+                    
+                    <Button x:Name="btnLineUpNieuw" Content="Nieuw" Margin="5" Grid.Column="0" Command="{Binding NewLineUpCommand}"/>
+                    <Button x:Name="btnLineUpAanpassen" Content="Aanpassen" Grid.Column="1" Margin="5" Command="{Binding EditLineUpCommand}"/>
+                    <Button x:Name="btnLineUpVerwijderen" Content="Verwijderen" Grid.Column="2" Margin="5" Command="{Binding DeleteLineUpCommand}"/>
                 </Grid>
-            </TabItem>
-
-            <TabItem Header="Edit Bands">
-                
             </TabItem>
 
             <TabItem Header="Genre">

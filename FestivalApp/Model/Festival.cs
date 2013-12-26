@@ -12,7 +12,6 @@ namespace FestivalApp.Model
     class Festival
     {
         private DateTime _StartDate;
-
         public DateTime StartDate {
             get {
                 return _StartDate;
@@ -23,7 +22,6 @@ namespace FestivalApp.Model
         }
         
         private DateTime _EndDate;
-
         public DateTime EndDate {
             get {
                 return _EndDate;
@@ -34,7 +32,6 @@ namespace FestivalApp.Model
         }
 
         private String _Name;
-
         public String Name {
             get {
                 return _Name;

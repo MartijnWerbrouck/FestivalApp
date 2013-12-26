@@ -20,32 +20,60 @@ namespace FestivalApp.View
     /// </summary>
     public partial class LineUpPage : UserControl
     {
-        public LineUpPage()
-        {
+        public LineUpPage() {
             InitializeComponent();
+
+            //Stage
+            btnPodiaNieuw.IsEnabled = false;
+            btnPodiaAanpassen.IsEnabled = false;
+            btnPodiaVerwijderen.IsEnabled = false;
+
+            //Bands
+            btnBandsNieuw.IsEnabled = false;
+            btnBandsAanpassen.IsEnabled = false;
+            btnBandsVerwijderen.IsEnabled = false;
+            btnAfbeeldingToevoegen.IsEnabled = false;
+            cboGenresToevoegen.IsEnabled = false;
+            btnGenresToevoegen.IsEnabled = false;
+            btnGenresBevestigen.IsEnabled = false;
+
+            //LineUp 
+            btnLineUpNieuw.IsEnabled = false;
+            btnLineUpAanpassen.IsEnabled = false;
+            btnLineUpVerwijderen.IsEnabled = false;
+            dpDatum.IsEnabled = false;
+            cboBandKiezen.IsEnabled = false;
+            btnToonDetails.IsEnabled = false;
+            cboStageKiezen.IsEnabled = false; 
         }
 
-        private void btnBandsNieuw_Click(object sender, RoutedEventArgs e)
-        {
-            var nieuwBand = new NieuwBand();
-            nieuwBand.Show();
+        private void dgPodia_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            btnPodiaNieuw.IsEnabled = true;
+            btnPodiaAanpassen.IsEnabled = true;
+            btnPodiaVerwijderen.IsEnabled = true;
         }
 
-        private void btnToonDetails_Click(object sender, RoutedEventArgs e)
-        {
-            var detailsBand = new DetailBand();
-            detailsBand.Show();
+        private void dgBands_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            btnBandsNieuw.IsEnabled = true;
+            btnBandsAanpassen.IsEnabled = true;
+            btnBandsVerwijderen.IsEnabled = true;
+            btnAfbeeldingToevoegen.IsEnabled = true;
+            cboGenresToevoegen.IsEnabled = true;
+            btnGenresToevoegen.IsEnabled = true;
         }
 
-        private void btnBandsAanpassen_Click(object sender, RoutedEventArgs e)
-        {
-            var editBand = new EditBand();
-            editBand.Show();
+        private void cboGenresToevoegen_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            btnGenresBevestigen.IsEnabled = true;
         }
 
-        private void btnBandsVerwijderen_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("De band werd verwijderd");
+        private void dgLineUp_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            btnLineUpNieuw.IsEnabled = true;
+            btnLineUpAanpassen.IsEnabled = true;
+            btnLineUpVerwijderen.IsEnabled = true;
+            dpDatum.IsEnabled = true;
+            cboBandKiezen.IsEnabled = true;
+            btnToonDetails.IsEnabled = true;
+            cboStageKiezen.IsEnabled = true; 
         }
     }
 }

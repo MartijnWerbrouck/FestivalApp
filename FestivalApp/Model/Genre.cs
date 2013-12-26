@@ -82,7 +82,6 @@ namespace FestivalApp.Model
                 return "Model not valid";
             }
         }
-
         public string this[string columnName] {
             get {
                 string error = string.Empty;

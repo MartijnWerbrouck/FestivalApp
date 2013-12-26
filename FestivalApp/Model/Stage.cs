@@ -13,7 +13,6 @@ namespace FestivalApp.Model
     class Stage : IDataErrorInfo
     {
         private String _ID;
-
         public String ID {
             get {
                 return _ID;
@@ -24,7 +23,6 @@ namespace FestivalApp.Model
         }
 
         private String _Name;
-
         public String Name {
             get {
                 return _Name;

@@ -34,7 +34,6 @@ namespace FestivalApp.ViewModel
             }
         }
 
-        //Command waar de button aan gebind is
         public ICommand EditFestivalCommand {
             get {
                 return new RelayCommand(EditFestival);
