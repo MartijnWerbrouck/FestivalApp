@@ -85,6 +85,7 @@ namespace FestivalApp.ViewModel
             Stage.AddStage(s);
 
             MessageBox.Show("Er werd een nieuwe stage toegevoegd");
+            OnPropertyChanged("Stages");
         }
         private void EditStage() {
             Stage s = new Stage();
@@ -95,6 +96,7 @@ namespace FestivalApp.ViewModel
             Stage.ModifyStage(s);
 
             MessageBox.Show("Er werd een stage gewijzigd");
+            OnPropertyChanged("Stages");
         } 
         private void DeleteStage() {
             Stage s = new Stage();
@@ -103,6 +105,7 @@ namespace FestivalApp.ViewModel
             Stage.DeleteStage(s);
 
             MessageBox.Show("De stage werd succesvol verwijderd.");
+            OnPropertyChanged("Stages");
         }
         
         #endregion
@@ -221,6 +224,7 @@ namespace FestivalApp.ViewModel
                 Band.AddBand(b);
 
                 MessageBox.Show("Er is een nieuwe band toegevoegd");
+                OnPropertyChanged("Bands");
             }
             else {
                 MessageBox.Show("Gelieve een afbeelding te selecteren");
@@ -244,6 +248,7 @@ namespace FestivalApp.ViewModel
             Band.ModifyBand(b);
 
             MessageBox.Show("De band werd gewijzigd");
+            OnPropertyChanged("Bands");
         }
         private void DeleteBand() {
             Band b = new Band();
@@ -253,6 +258,7 @@ namespace FestivalApp.ViewModel
             Band.DeleteBand(b);
 
             MessageBox.Show("De band werd verwijderd");
+            OnPropertyChanged("Bands");
         }
         private void SelectGenres() {
             ObservableCollection<Genre> lijst = _selectedBandGenres;
@@ -394,6 +400,7 @@ namespace FestivalApp.ViewModel
                     LineUp.AddLineUp(lu);
 
                     MessageBox.Show("Er werd een nieuwe line up toegevoegd");
+                    OnPropertyChanged("LineUps");
                 }
                 else {
                     MessageBox.Show("Gelieve een Stage te selecteren");
@@ -426,6 +433,7 @@ namespace FestivalApp.ViewModel
             LineUp.ModifyLineUp(lu);
 
             MessageBox.Show("De line up werd gewijzigd");
+            OnPropertyChanged("LineUps");
         }
         private void DeleteLineUp() {
             LineUp lu = new LineUp();
@@ -437,6 +445,7 @@ namespace FestivalApp.ViewModel
             LineUp.DeleteLineUp(lu);
 
             MessageBox.Show("De lineup werd succesvol verwijderd");
+            OnPropertyChanged("LineUps");
         }
 
         #endregion
@@ -489,6 +498,7 @@ namespace FestivalApp.ViewModel
             Genre.AddGenre(g);
 
             MessageBox.Show("Er werd een nieuw genre toegevoegd");
+            OnPropertyChanged("Genres");
         }
         private void EditGenre() {
             Genre g = new Genre();
@@ -499,6 +509,7 @@ namespace FestivalApp.ViewModel
             Genre.ModifyGenre(g);
 
             MessageBox.Show("Er werd een genre gewijzigd");
+            OnPropertyChanged("Genres");
         }
         private void DeleteGenre() {
             Genre g = new Genre();
@@ -507,6 +518,7 @@ namespace FestivalApp.ViewModel
             Genre.DeleteGenre(g);
 
             MessageBox.Show("Het genre werd succesvol verwijderd");
+            OnPropertyChanged("Genres");
         }
 
         #endregion

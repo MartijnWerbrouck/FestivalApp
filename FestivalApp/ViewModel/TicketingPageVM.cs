@@ -69,11 +69,12 @@ namespace FestivalApp.ViewModel
             TicketType.UpdateTicketType(tt);
 
             MessageBox.Show("De prijs en aantal voor " + _selectedTicketType.Name + " zijn bevestigd");
+            OnPropertyChanged("TicketTypes");
         }
 
         #endregion
 
-        #region
+        #region Tickets
 
         private ObservableCollection<Ticket> _tickets;
         public ObservableCollection<Ticket> Tickets {
@@ -113,6 +114,16 @@ namespace FestivalApp.ViewModel
                 return new RelayCommand(NewTicket);
             }
         }
+        public ICommand BeschikbaarheidCommand {
+            get {
+                return new RelayCommand(CheckBeschikbaarheid);
+            }
+        }
+        public ICommand ExportFiletoWordCommand {
+            get {
+                return new RelayCommand(ExportFiletoWord);
+            }
+        }
 
         private void NewTicket() {
             Ticket t = new Ticket();
@@ -125,14 +136,8 @@ namespace FestivalApp.ViewModel
             Ticket.InsertTicket(t);
 
             MessageBox.Show("De reservatie voor klant is bevestigd.");
+            OnPropertyChanged("Tickets");
         }
-
-        public ICommand BeschikbaarheidCommand {
-            get {
-                return new RelayCommand(CheckBeschikbaarheid);
-            }
-        }
-
         private void CheckBeschikbaarheid() { 
             ObservableCollection<Ticket> lijst = Ticket.GetTickets();
             int aantal1 = TicketType.GetTicketByName("Combi").AvailableTickets;
@@ -160,13 +165,6 @@ namespace FestivalApp.ViewModel
 
             MessageBox.Show("Er zijn nog " + aantal1 + " combi tickets, " + aantal2 + " vrijdag tickets, " + aantal3 + " zaterdag tickets, " + aantal4 + " zondag tickets");
         }
-
-        public ICommand ExportFiletoWordCommand {
-            get {
-                return new RelayCommand(ExportFiletoWord);
-            }
-        }
-
         private void ExportFiletoWord() {
             Ticket t = _selectedTicket;
             
@@ -198,6 +196,7 @@ namespace FestivalApp.ViewModel
             }
             MessageBox.Show("De tickets werden afgeprint");
         }
+
         #endregion 
     }
 }

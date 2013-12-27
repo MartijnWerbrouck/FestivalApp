@@ -49,6 +49,7 @@ namespace FestivalApp.ViewModel
             Festival.SaveFestival(editFestival);
 
             MessageBox.Show("De wijzigingen werden opgeslaan.");
+            OnPropertyChanged("Festivals");
         }
     }
 }

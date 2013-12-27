@@ -137,6 +137,7 @@ namespace FestivalApp.ViewModel
                 Contactperson.InsertContactperson(c);
 
                 MessageBox.Show("De wijzigingen werden opgeslaan.");
+                OnPropertyChanged("Contactpersons");
             }
         }
         private void EditContactperson() {
@@ -158,6 +159,7 @@ namespace FestivalApp.ViewModel
                 Contactperson.UpdateContactperson(c);
 
                 MessageBox.Show("De wijzigingen werden opgeslaan.");
+                OnPropertyChanged("Contactpersons");
             }
         }
         private void DeleteContactperson() {
@@ -175,6 +177,7 @@ namespace FestivalApp.ViewModel
             Contactperson.DeleteContactperson(c);
 
             MessageBox.Show("De wijzigingen werden opgeslaan.");
+            OnPropertyChanged("Contactpersons");
         }
 
         #endregion
@@ -211,6 +214,8 @@ namespace FestivalApp.ViewModel
             ContactpersonType.InsertContactpersonType(ct);
 
             MessageBox.Show("De nieuwe functie werd toegevoegd");
+            OnPropertyChanged("Types");
+            OnPropertyChanged("ChangeTypes");
         }
         private void EditContactpersonType() { 
             ContactpersonType ct = new ContactpersonType();
@@ -221,6 +226,8 @@ namespace FestivalApp.ViewModel
             ContactpersonType.UpdateContactpersonType(ct);
 
             MessageBox.Show("De functie werd gewijzigd");
+            OnPropertyChanged("Types");
+            OnPropertyChanged("ChangeTypes");
         }
 
         #endregion
