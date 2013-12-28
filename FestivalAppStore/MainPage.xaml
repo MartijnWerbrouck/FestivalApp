@@ -10,14 +10,12 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Name="tbBands" Text="Bands" Grid.Row="0" Grid.Column="0" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -32,13 +30,13 @@
             <TextBox x:Name="txtTwitter" FontSize="18" VerticalContentAlignment="Center" Width="364" Height="50" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="5,5,-63,100"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Margin="35,15,0,0">
-            <TextBlock Name="tbOmschrijving" Text="Omschrijving" FontSize="20"/>
-            <TextBox Name="txtOmschrijving" FontSize="20" VerticalContentAlignment="Center" Width="880" Height="150" TextWrapping="Wrap" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="0,10,0,0"/>
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="35,335,0,-320">
+            <TextBlock x:Name="tbOmschrijving" Text="Omschrijving" FontSize="20"/>
+            <TextBox x:Name="txtOmschrijving" FontSize="20" VerticalContentAlignment="Center" Width="810" Height="150" TextWrapping="Wrap" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="0,10,0,0"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2">
-            <Image x:Name="imgBand" Height="453" Width="450" Margin="117,75,116,75"/>
+        <StackPanel Grid.Column="1"  Margin="268,0,-268,128" Grid.RowSpan="2">
+            <Image x:Name="imgBand" Height="300" Width="300" Margin="256,140,355,0"/>
         </StackPanel>
 
 
